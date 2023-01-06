@@ -1,0 +1,85 @@
+1- crear puntero del host intranet
+
+sudo nano /etc/hosts  
+
+# Standard host addresses
+#127.0.0.1  localhost
+127.0.0.1  demo.com
+::1        localhost ip6-localhost ip6-loopback
+ff02::1    ip6-allnodes
+ff02::2    ip6-allrouters
+# This host address
+127.0.1.1  ricky
+# Added by Docker Desktop
+# To allow the same kube context to work on the host and the container:
+127.0.0.1	kubernetes.docker.internal
+# End of section
+
+
+
+
+2- crear certificado
+
+sudo go run main.go
+
+mkdir ssl.crt
+mkdir ssl.key
+cp cert.pem ssl.crt/demo.com.crt
+cp key.pem ssl.key/demo.com.key
+
+
+
+
+
+3-ejecutar:
+
+cd ssl.crt
+sudo chmod a+x demo.com.crt
+sudo cp demo.com.crt /usr/share/ca-certificates/trust-source/anchors/demo.com.crt
+sudo update-ca-trust extract 
+
+
+
+
+
+4- freebsd:
+
+pkg install ca_root_nss
+pkg install security/ca_root_nss
+    
+/usr/local/etc/ssl/certs  o  /etc/ssl/certs
+certctl rehash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sudo cp cert.pem /etc/ssl/certs/cert.pem
+sudo update-ca-trust
+sudo update-ca -ificates
+
+sudo cp demo.com.crt /usr/local/share/ca-certificates/demo.com.crt
+sudo update-ca-certificates --fresh
+
+sudo cp demo.com.crt /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust extract

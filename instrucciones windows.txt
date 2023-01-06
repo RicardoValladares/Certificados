@@ -1,0 +1,32 @@
+1- crear puntero del host intranet
+
+C:\Windows\System32\drivers\etc\hosts
+
+#
+#127.0.0.1 localhost
+127.0.0.1 demo.com
+::1 localhost
+
+192.100.1.73      dgme.gob.sv
+10.10.1.27      mail.seguridad.gob.sv
+10.10.1.27      smtp.seguridad.gob.sv
+# To allow the same kube context to work on the host and the container:
+127.0.0.1 kubernetes.docker.internal
+# End of section
+
+
+2- crear certificado
+
+go run main.go
+
+xcopy .\cert.pem .\ssl.crt\demo.com.crt
+xcopy .\key.pem .\ssl.key\demo.com.key
+
+
+3-ejecutar:
+
+.\ssl.crt\demo.com.crt
+1-Instalar certificado...
+2-Equipo local
+3-Colocar todos los certificados en el siguiente almace. Examinar. Entidades de certificacio raiz de confianza.
+
