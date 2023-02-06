@@ -1,4 +1,4 @@
-module demo
+module github.com/RicardoValladares/Certificados
 
 go 1.19
 
