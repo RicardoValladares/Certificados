@@ -1,22 +1,16 @@
 openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout example.com.key -out example.com.crt -subj "/CN=example.com"  -addext "subjectAltName=DNS:example.com,DNS:*.example.com,IP:127.0.0.1"
 
-Each of the above commands creates a certificate that is
 
-valid for the domain example.com (SAN),
-also valid for the wildcard domain *.example.com (SAN),
-also valid for the IP address 10.0.0.1 (SAN),
-relatively strong (as of 2023) and
-valid for 3650 days (~10 years).
-The following files are generated:
 
-Private key: example.com.key
-Certificate: example.com.crt
-All information is provided at the command line. There is no interactive input that annoys you. There are no config files you have to mess around with. All necessary steps are executed by a single OpenSSL invocation: from private key generation up to the self-signed certificate.
 
-Remark #1: Crypto parameters
-Since the certificate is self-signed and needs to be accepted by users manually, it doesn't make sense to use a short expiration or weak cryptography.
+Cada uno de los comandos anteriores crea un certificado que es
 
-In the future, you might want to use more than 4096 bits for the RSA key and a hash algorithm stronger than sha256, but as of 2023 these are sane values. They are sufficiently strong while being supported by all modern browsers.
+válido para el dominio example.com (SAN), también válido para el dominio comodín *.example.com (SAN), también válido para la dirección IP 10.0.0.1 (SAN), relativamente fuerte (a partir de 2023) y válido para 3650 días (~10 años). Se generan los siguientes archivos:
 
-Remark #2: Parameter "-nodes"
-Theoretically you could leave out the -nodes parameter (which means "no DES encryption"), in which case example.key would be encrypted with a password. However, this is almost never useful for a server installation, because you would either have to store the password on the server as well, or you'd have to enter it manually on each reboot.
+Clave privada: example.com.key Certificado: example.com.crt Toda la información se proporciona en la línea de comando. No hay ninguna entrada interactiva que te moleste. No hay archivos de configuración con los que tengas que jugar. Todos los pasos necesarios se ejecutan mediante una única invocación de OpenSSL: desde la generación de la clave privada hasta el certificado autofirmado.
+
+Observación #1: Parámetros criptográficos Dado que el certificado está autofirmado y los usuarios deben aceptarlo manualmente, no tiene sentido utilizar una caducidad corta o una criptografía débil.
+
+En el futuro, es posible que desee utilizar más de 4096 bits para la clave RSA y un algoritmo hash más potente que sha256, pero a partir de 2023 estos son valores sensatos. Son lo suficientemente potentes y, al mismo tiempo, compatibles con todos los navegadores modernos.
+
+Observación #2: Parámetro "-nodes" Teóricamente podría omitir el parámetro -nodes (que significa "sin cifrado DES"), en cuyo caso ejemplo.key se cifraría con una contraseña. Sin embargo, esto casi nunca es útil para la instalación de un servidor, porque también tendría que almacenar la contraseña en el servidor o ingresarla manualmente en cada reinicio.
